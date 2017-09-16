@@ -6,7 +6,7 @@ var engines = require('consolidate');
 var path = require('path');
 var bodyParser = require('body-parser');
 var fs = require('fs');
-var port = process.env.PORT || 3030;
+var port = process.env.PORT || 3000;
 
 var httpServer = http.createServer(app);
 

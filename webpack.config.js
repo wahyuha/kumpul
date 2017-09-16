@@ -32,8 +32,8 @@ module.exports = {
       new webpack.DefinePlugin({
         'process.env': {
           NODE_ENV: JSON.stringify('development'),
-          API_URL: JSON.stringify('http://localhost:3030/'),
-          PORT: JSON.stringify(3030),
+          API_URL: JSON.stringify('http://localhost:3000/'),
+          PORT: JSON.stringify(3000),
           PRODUCTION: JSON.stringify(false),
           VERSION: JSON.stringify("1.0"),
           BROWSER_SUPPORTS_HTML5: true,
