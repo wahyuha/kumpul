@@ -239,3 +239,4 @@ Detail.propTypes = {
 };
 
 export default withStyles(styles)(Detail);
+

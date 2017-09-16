@@ -6,6 +6,7 @@ var engines = require('consolidate');
 var path = require('path');
 var bodyParser = require('body-parser');
 var fs = require('fs');
+var port = process.env.PORT || 3030;
 
 var httpServer = http.createServer(app);
 
@@ -30,4 +31,5 @@ app.get('/users', function(req, res){
 app.use('/build', express.static('build'))
 app.use('/assets', express.static('assets'))
 
-httpServer.listen(3030);
+httpServer.listen(port);
+

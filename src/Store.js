@@ -10,3 +10,4 @@ const middleware = applyMiddleware(promise(), thunk, createLogger())
 
 export default createStore(reducer, middleware)
 
+

@@ -42,3 +42,4 @@ module.exports = {
     new webpack.optimize.CommonsChunkPlugin({name:"vendor", filename: "./kumpul.vendor.js"})
   ]
 }
+

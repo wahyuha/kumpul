@@ -37,9 +37,10 @@
   "main": "server.js",
   "scripts": {
     "start": "node server",
-    "watch": "webpack --progress --colors --watch",
-    "build": "webpack --progress --colors --watch --config webpack.production.config.js"
+    "build": "webpack --progress --colors --watch --config webpack.production.config.js",
+    "watch": "webpack --progress --colors --watch"
   },
   "author": "wahyu haryanto <way3haryanto@gmail.com>",
   "license": "ISC"
 }
+

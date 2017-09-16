@@ -170,3 +170,4 @@ NewUser.propTypes = {
 };
 
 export default withStyles(styles)(NewUser);
+
