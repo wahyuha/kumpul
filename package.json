@@ -22,7 +22,6 @@
     "babel-plugin-transform-decorators-legacy": "^1.3.4",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.16.0",
-    "consolidate": "^0.14.5",
     "ejs": "^2.5.7",
     "material-ui": "^1.0.0-beta.9",
     "material-ui-icons": "^1.0.0-beta.5",
@@ -43,4 +42,3 @@
   "author": "wahyu haryanto <way3haryanto@gmail.com>",
   "license": "ISC"
 }
-

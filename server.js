@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var app = express();
 var http = require('http');
-var engines = require('consolidate');
+// var engines = require('consolidate');
 var path = require('path');
 var bodyParser = require('body-parser');
 var fs = require('fs');
@@ -11,7 +11,7 @@ var port = process.env.PORT || 3000;
 var httpServer = http.createServer(app);
 
 // engine template
-app.engine('html', engines.mustache);
+app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'html');
 
 // json
