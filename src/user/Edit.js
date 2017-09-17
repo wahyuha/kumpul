@@ -169,7 +169,7 @@ class Edit extends Component {
             onChange={event => this.setState({ biography: event.target.value })}            
             margin="normal"
             />
-            <Grid container spacing={12}>
+            <Grid container spacing={0}>
               <FormControlLabel className={classes.inputRef}
                 control={
                     <Switch

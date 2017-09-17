@@ -5,10 +5,18 @@ import AppBar from 'material-ui/AppBar'
 import Toolbar from 'material-ui/Toolbar'
 import Typography from 'material-ui/Typography'
 
+import Drawer from 'material-ui/Drawer';
+import { FormControlLabel } from 'material-ui/Form';
+import Grid from 'material-ui/Grid';
+import Switch from 'material-ui/Switch';
 import IconButton from 'material-ui/IconButton'
+import ChevronLeftIcon from 'material-ui-icons/ChevronLeft';
+import Divider from 'material-ui/Divider';
+
 import MenuIcon from 'material-ui-icons/Menu'
 import AddIcon from 'material-ui-icons/Add'
 import RefreshIcon from 'material-ui-icons/Refresh'
+
 
 const styles = theme => ({
 root: {
@@ -23,23 +31,81 @@ menuButton: {
     marginLeft: -12,
     marginRight: 0,
 },
+drawing: {
+    width: '100%',
+    height: 430,
+    marginTop: theme.spacing.unit * 3,
+    zIndex: 1,
+    overflow: 'hidden',
+  },
+  control: {
+    marginLeft: 20
+  },
+  drawerPaper: {
+    position: 'relative',
+    height: 'auto',
+    width: 240,
+  },
+  drawerHeader: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    padding: '0 8px',
+    ...theme.mixins.toolbar,
+  },
+  
 })
 
 class App extends Component {
 
     constructor(props) {
         super(props)
+
+        this.state = ({
+            loadmore: true, menu: false
+        })
     }
-  
+    
+    loadmoreSetting = (event, checked) => {
+        this.setState({ loadmore: checked })
+    }
+
     render() {
       const classes = this.props.classes;
 
       return (
         <div className={classes.root}>
+            <Drawer
+                type="persistent"
+                classes={{
+                    paper: styles.drawerPaper,
+                }}
+                open={this.state.menu}
+            >
+                <div className={styles.drawerInner}>
+                    <div className={styles.drawerHeader}>
+                        <IconButton onClick={() => this.setState({ menu: false })}>
+                            <ChevronLeftIcon />
+                        </IconButton>
+                        <Divider />
+                        <Grid container spacing={0}>
+                            <FormControlLabel className={styles.control}
+                                control={
+                                    <Switch
+                                    checked={this.state.loadmore}
+                                    onChange={this.loadmoreSetting}
+                                    />
+                                }
+                                label="Loadmore"
+                            />
+                        </Grid>
+                    </div>
+                </div>
+            </Drawer>
             <AppBar position="static">
                 <Toolbar>
                 <IconButton className={classes.menuButton} color="contrast" aria-label="Menu">
-                    <MenuIcon />
+                    <MenuIcon onClick={()=>this.setState({ menu: true })} />
                 </IconButton>
                 <Typography type="title" color="inherit" className={classes.flex}>
                     kumpulan

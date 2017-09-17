@@ -127,7 +127,7 @@ class Detail extends Component {
       return (
         <div>
           <Card className={classes.card}>
-            <Grid container spacing={12}>
+            <Grid container spacing={0}>
               <Grid item xs={10}>
                 <CardHeader
                   avatar={
