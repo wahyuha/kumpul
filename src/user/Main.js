@@ -1,8 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { connect } from 'react-redux'
-
 import { withStyles } from 'material-ui/styles';
 import List, {
   ListItem,
@@ -16,7 +14,9 @@ import { CircularProgress } from 'material-ui/Progress'
 
 import Pagination from '../Pagination';
 
+import { connect } from 'react-redux'
 import { fetchUsers } from '../actions/users'
+import { loadmoreStatus } from '../actions/events'
 
 const styles = theme => ({
   root: {
@@ -38,17 +38,16 @@ const styles = theme => ({
 @connect((store) => {
   return {
     users: store.users.users,
-    events: store.events.events
+    loadmore: store.events.loadmore
   }
 })
 class App extends React.Component {
 
   constructor(props) {
     super(props)
-
+    
     this.state = ({
       loadmore: {
-        status: true,
         progress: 'going',
         done: false
       },
@@ -77,25 +76,29 @@ class App extends React.Component {
       var { users } = this.props
       const { current } = this.state
 
-      if(current < users.length/10) { // limit
-        this.setState({ 
-          loadmore: {
-            ...this.state.loadmore,
-            progress:'going'
-          }
-        })
-        setTimeout(()=>{
-          var { users } = this.props
-          const { current } = this.state
+      if(this.props.loadmore) {
 
+        if(current < users.length/10) { // limit
           this.setState({ 
-            current: this.state.current+1,
             loadmore: {
               ...this.state.loadmore,
-              progress:'finish'
+              progress:'going'
             }
-          })         
-        },1200)
+          })
+          setTimeout(()=>{
+            var { users } = this.props
+            const { current } = this.state
+
+            this.setState({ 
+              current: this.state.current+1,
+              loadmore: {
+                ...this.state.loadmore,
+                progress:'finish'
+              }
+            })         
+          },1000)
+        }
+
       }
 
     }
@@ -106,12 +109,12 @@ class App extends React.Component {
   }
 
   render() {
-    var { users, events, classes } = this.props
+    var { users, loadmore, classes } = this.props
 
     var perpage = 10 // view per page
     var total = users.length/perpage // total all
 
-    if(this.state.loadmore.status)// mode: loadmore
+    if(loadmore)// mode: loadmore
       var bottom = 0 // batas posisi bawah
     else // mode: pagination
       var bottom = (perpage*(this.state.current-1)) - 1 // batas posisi bawah
@@ -121,7 +124,7 @@ class App extends React.Component {
     var userFix = Object.assign([], users.filter((user, ind) => ind > bottom && ind < top))
 
     const listNama = userFix.map((value, index) => 
-        <ListItem button component="a" href={"#/user/"+value.id} >
+        <ListItem button component="a" href={"#/user/"+value.id} key={index} >
             <ListItemAvatar aria-label="W" className={classes.avatar}>
             <Avatar src="../assets/img/weteha_thumb.jpg" />
             </ListItemAvatar>
@@ -132,7 +135,7 @@ class App extends React.Component {
         </ListItem>
     )
 
-    const pagination = !this.state.loadmore.status ? (<Pagination
+    const pagination = !loadmore ? (<Pagination
                         total = { total }
                         current = { this.state.current }
                         display = { this.state.display }

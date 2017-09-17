@@ -8,6 +8,9 @@ export default function reducer(state={
         case "LOADMORE_OFF": {
             return {...state, loadmore: false}
         }
+        case "LOADMORE_STATUS": {
+            return {...state}
+        }
     }
 
     return state

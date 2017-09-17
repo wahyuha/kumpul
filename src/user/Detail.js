@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom'
 
-import { connect } from 'react-redux'
-
 import { withStyles } from 'material-ui/styles';
 import classnames from 'classnames';
 import Grid from 'material-ui/Grid';
@@ -18,7 +16,6 @@ import ShareIcon from 'material-ui-icons/Share';
 import ExpandMoreIcon from 'material-ui-icons/ExpandMore';
 import MoreVertIcon from 'material-ui-icons/MoreVert';
 import Menu, { MenuItem } from 'material-ui/Menu';
-
 import Button from 'material-ui/Button';
 import Dialog, {
   DialogActions,
@@ -27,6 +24,7 @@ import Dialog, {
   DialogTitle,
 } from 'material-ui/Dialog';
 
+import { connect } from 'react-redux'
 import { getUser, deleteUser } from '../actions/users'
 
 const styles = theme => ({
@@ -68,7 +66,7 @@ class Detail extends Component {
         anchorEl: null,
         verticalMenu: false,
         dialog: false,
-        favorite: '',
+        favorite: 'default',
         deleted: false
       };
     }
@@ -77,14 +75,6 @@ class Detail extends Component {
       const userId = this.props.match.params.id
       this.props.dispatch(getUser(userId))
     }
-
-    handleExpandClick = () => {
-      this.setState({ expanded: !this.state.expanded });
-    };
-
-    handleClick = event => {
-      this.setState({ verticalMenu: true, anchorEl: event.currentTarget });
-    };
   
     handleRequestClose = () => {
       this.setState({ verticalMenu: false });
@@ -98,7 +88,7 @@ class Detail extends Component {
     }
 
     handleFavorite = () => {
-      this.setState({favorite: (this.state.favorite == '') ? 'accent' : ''})
+      this.setState({favorite: (this.state.favorite == 'default') ? 'accent' : 'default'})
       this.setState({ verticalMenu: false });
     }
 
@@ -111,10 +101,6 @@ class Detail extends Component {
         deleted: true
       });
     }
-
-    handleDialogClose = () => {
-      this.setState({ dialog: false });
-    };  
   
     render() {
       const { classes, user } = this.props;
@@ -139,7 +125,7 @@ class Detail extends Component {
               </Grid>
               <Grid item xs={2}>
                 <IconButton aria-label="Action">
-                  <MoreVertIcon onClick={this.handleClick} />
+                  <MoreVertIcon onClick={(event) => this.setState({ verticalMenu: true, anchorEl: event.currentTarget })} />
                 </IconButton>
                 <Menu
                   id="simple-menu"
@@ -175,7 +161,7 @@ class Detail extends Component {
                 className={classnames(classes.expand, {
                   [classes.expandOpen]: this.state.expanded,
                 })}
-                onClick={this.handleExpandClick}
+                onClick={() => this.setState({ expanded: !this.state.expanded })}
                 aria-expanded={this.state.expanded}
                 aria-label="Show more"
               >
@@ -220,7 +206,7 @@ class Detail extends Component {
               </DialogContentText>
             </DialogContent>
             <DialogActions>
-              <Button onClick={this.handleRequestClose} color="primary">
+              <Button onClick={() => this.setState({ dialog: false })} color="primary">
                 Cancel
               </Button>
               <Button raised onClick={this.doDelete} color="accent">

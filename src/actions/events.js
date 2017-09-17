@@ -9,3 +9,9 @@ export function loadmoreOFF(flag) {
         type: 'LOADMORE_OFF', payload: false
     }
 }
+
+export function loadmoreStatus(flag) {
+    return {
+        type: 'LOADMORE_STATUS', payload: null
+    }
+}

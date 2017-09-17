@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from 'material-ui/styles';
 import { Redirect } from 'react-router-dom'
 
-import { connect } from 'react-redux'
-
+import { withStyles } from 'material-ui/styles';
+import classnames from 'classnames';
 import Input, { InputLabel } from 'material-ui/Input';
 import TextField from 'material-ui/TextField';
 import { MenuItem } from 'material-ui/Menu'
@@ -14,9 +13,8 @@ import { FormControlLabel } from 'material-ui/Form';
 import Switch from 'material-ui/Switch';
 import Button from 'material-ui/Button';
 
+import { connect } from 'react-redux'
 import { getUser, addOrEditUser } from '../actions/users'
-
-import classnames from 'classnames';
 
 const styles = theme => ({
     container: {
