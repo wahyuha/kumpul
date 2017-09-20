@@ -1,6 +1,6 @@
 # kumpul
 
-Material UI simple CRUD
+React Material UI simple CRUD
 
 ## Getting Started
 Need to install all dependencies
